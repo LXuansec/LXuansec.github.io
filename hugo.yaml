@@ -1,4 +1,4 @@
-baseURL: "http://localhost/"
+baseURL: "https://lxuansec.github.io/"
 languageCode: "zh-cn"
 title: "LXuan"
 theme: "PaperMod"
