@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ $pages := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+<div class="lx-home">
+  <section class="lx-session" aria-label="LXuan blog">
+    <div class="lx-windowbar"><span class="lx-window-mark" aria-hidden="true">✳</span><span>~/LXuan <span class="lx-muted">— blog session</span></span><span class="lx-window-index">01 / HOME</span></div>
+    <div class="lx-hero">
+      <div class="lx-orbits" aria-hidden="true"><i></i><i></i><i></i><span>+</span></div>
+      <div class="lx-eyebrow">PERSONAL ARCHIVE <span>／</span> EST. 2026</div>
+      <h1 class="lx-title" data-title="LXuan">LXuan<span class="lx-title-period">.</span></h1>
+      <div class="lx-title-rule" aria-hidden="true"><span></span><span></span><span></span></div>
+      <nav class="lx-links" aria-label="首页导航">
+        <a href="{{ "posts/" | relURL }}">Blog <span>↗</span></a>
+        <a href="{{ "tags/" | relURL }}">Tags <span>↗</span></a>
+        <a href="{{ "archives/" | relURL }}">Archives <span>↗</span></a>
+        <a href="https://github.com/LXuansec" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+      </nav>
+    </div>
+    <div class="lx-prompt-line"><span aria-hidden="true">❯</span> read the latest posts <span class="lx-cursor" aria-hidden="true"></span></div>
+    <div class="lx-session-status"><span class="lx-status-dot" aria-hidden="true"></span>{{ len $pages }} posts in context <span class="lx-status-path">~/blog/posts</span></div>
+  </section>
+  <section class="lx-posts" aria-labelledby="lx-post-heading">
+    <div class="lx-section-heading"><h2 id="lx-post-heading"><span aria-hidden="true">❯</span> Recent sessions</h2><span>{{ printf "%02d" (len $pages) }} ENTRIES</span></div>
+    {{ range first 8 $pages }}
+    <article class="lx-post"><a href="{{ .RelPermalink }}" class="lx-post-link">
+      <h3 class="lx-command"><span class="lx-command-arrow" aria-hidden="true">›</span><span class="lx-call">Read(</span>"{{ .Title }}"<span class="lx-call">)</span></h3>
+      {{ with .Summary }}<p class="lx-summary">{{ . | plainify | truncate 150 }}</p>{{ end }}
+      <div class="lx-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>{{ if site.Params.ShowReadingTime }}<span>· {{ .ReadingTime }} min</span>{{ end }}{{ with .Params.tags }}<span>· {{ index . 0 }}</span>{{ end }}<span class="lx-read-arrow" aria-hidden="true">↗</span></div>
+    </a></article>
+    {{ else }}
+    <div class="lx-empty"><span class="lx-empty-symbol" aria-hidden="true">[ &nbsp; ]</span><p>暂无文章</p><span class="lx-empty-note">下一篇，从这里开始。</span></div>
+    {{ end }}
+    {{ if gt (len $pages) 8 }}<a class="lx-all-posts" href="{{ "posts/" | relURL }}">View all posts ↗</a>{{ end }}
+  </section>
+</div>
+{{ end }}

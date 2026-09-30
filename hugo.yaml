@@ -2,3 +2,30 @@ baseURL: "https://lxuansec.github.io/"
 languageCode: "zh-cn"
 title: "LXuan"
 theme: "PaperMod"
+
+params:
+  defaultTheme: dark
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+
+menu:
+  main:
+    - identifier: posts
+      name: Blog
+      url: /posts/
+      weight: 10
+
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 30

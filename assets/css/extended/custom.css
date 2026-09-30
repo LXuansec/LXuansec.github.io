@@ -1,0 +1,76 @@
+:root {
+    --theme: #f4eee1;
+    --entry: #ebe3d5;
+
+    --primary: #292521;
+    --secondary: #766c62;
+
+    --tertiary: #ded3c3;
+
+    --content: #332e29;
+
+    --code-block-bg: #211e1a;
+    --code-bg: #e7ded0;
+
+    --border: #d8ccbc;
+
+    --lx-accent: #a84f38;
+    --lx-gold: #bd9350;
+    --lx-olive: #7e8976;
+}
+
+:root[data-theme="dark"] {
+    --theme: #191714;
+    --entry: #211e1a;
+
+    --primary: #e8dfd2;
+    --secondary: #9c9185;
+
+    --tertiary: #302b26;
+
+    --content: #ddd3c6;
+
+    --code-block-bg: #12110f;
+    --code-bg: #292520;
+
+    --border: #39322c;
+
+    --lx-accent: #d48161;
+    --lx-gold: #b99b65;
+    --lx-olive: #899382;
+}
+
+a {
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--lx-accent);
+}
+
+.post-title,
+.entry-header h2 {
+    letter-spacing: -0.02em;
+}
+
+.post-entry {
+    border: 1px solid var(--border);
+    box-shadow: none;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.post-entry:hover {
+    transform: translateY(-2px);
+    border-color: var(--lx-accent);
+}
+
+.logo a {
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+#menu a:hover {
+    color: var(--lx-accent);
+}
