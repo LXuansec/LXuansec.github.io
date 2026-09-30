@@ -19,17 +19,50 @@
     <div class="lx-session-status"><span class="lx-status-dot" aria-hidden="true"></span>{{ len $pages }} posts in context <span class="lx-status-path">~/blog/posts</span></div>
   </section>
   <section class="lx-posts" aria-labelledby="lx-post-heading">
-    <div class="lx-section-heading"><h2 id="lx-post-heading"><span aria-hidden="true">❯</span> Recent sessions</h2><span>{{ printf "%02d" (len $pages) }} ENTRIES</span></div>
-    {{ range first 8 $pages }}
-    <article class="lx-post"><a href="{{ .RelPermalink }}" class="lx-post-link">
-      <h3 class="lx-command"><span class="lx-command-arrow" aria-hidden="true">›</span><span class="lx-call">Read(</span>"{{ .Title }}"<span class="lx-call">)</span></h3>
-      {{ with .Summary }}<p class="lx-summary">{{ . | plainify | truncate 150 }}</p>{{ end }}
-      <div class="lx-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>{{ if site.Params.ShowReadingTime }}<span>· {{ .ReadingTime }} min</span>{{ end }}{{ with .Params.tags }}<span>· {{ index . 0 }}</span>{{ end }}<span class="lx-read-arrow" aria-hidden="true">↗</span></div>
-    </a></article>
-    {{ else }}
-    <div class="lx-empty"><span class="lx-empty-symbol" aria-hidden="true">[ &nbsp; ]</span><p>暂无文章</p><span class="lx-empty-note">下一篇，从这里开始。</span></div>
-    {{ end }}
-    {{ if gt (len $pages) 8 }}<a class="lx-all-posts" href="{{ "posts/" | relURL }}">View all posts ↗</a>{{ end }}
+    <div class="lx-section-heading"><h2 id="lx-post-heading"><span aria-hidden="true">❯</span> Blog</h2><span>{{ printf "%02d" (len $pages) }} POSTS</span></div>
+      {{ $groups := slice }}
+      {{ $pinned := slice "杂谈" "CUDA and pytorch" }}
+      {{ range $name := $pinned }}
+        {{ $categoryPages := slice }}
+        {{ $url := "" }}
+        {{ range site.Taxonomies.categories.Alphabetical }}
+          {{ if eq (lower .Page.LinkTitle) (lower $name) }}
+            {{ $categoryPages = intersect $pages .Pages }}
+            {{ $url = .Page.RelPermalink }}
+          {{ end }}
+        {{ end }}
+        {{ $groups = $groups | append (dict "title" $name "url" $url "pages" $categoryPages) }}
+      {{ end }}
+      {{ range site.Taxonomies.categories.Alphabetical }}
+        {{ $categoryPages := intersect $pages .Pages }}
+        {{ if and $categoryPages (not (in (slice "杂谈" "cuda and pytorch") (lower .Page.LinkTitle))) }}
+          {{ $groups = $groups | append (dict "title" .Page.LinkTitle "url" .Page.RelPermalink "pages" $categoryPages) }}
+        {{ end }}
+      {{ end }}
+      {{ $uncategorized := slice }}
+      {{ range $pages }}{{ if not (.GetTerms "categories") }}{{ $uncategorized = $uncategorized | append . }}{{ end }}{{ end }}
+      {{ if $uncategorized }}{{ $groups = $groups | append (dict "title" "未分类" "url" "" "pages" $uncategorized) }}{{ end }}
+      <nav class="lx-category-nav" aria-label="文章分类">
+        {{ range $i, $group := $groups }}<a href="#blog-category-{{ $i }}">{{ $group.title }} <span>{{ len $group.pages }}</span></a>{{ end }}
+      </nav>
+      <div class="lx-category-grid">
+        {{ range $i, $group := $groups }}
+        <section class="lx-category" id="blog-category-{{ $i }}" aria-labelledby="category-heading-{{ $i }}">
+          <div class="lx-category-header"><span class="lx-terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><h3 id="category-heading-{{ $i }}">~/{{ $group.title }}</h3><span>{{ printf "%02d" (len $group.pages) }} files</span></div><div class="lx-category-prompt"><span aria-hidden="true">❯</span> ls -t <span class="lx-mini-cursor" aria-hidden="true"></span></div>
+          {{ range first 4 $group.pages }}
+          <article class="lx-category-post"><a href="{{ .RelPermalink }}">
+            <div class="lx-category-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time><span aria-hidden="true">↗</span></div>
+            <h4><span class="lx-file-prompt" aria-hidden="true">›</span> {{ .Title }}</h4>
+            {{ with .Summary }}<p>{{ . | plainify | truncate 80 }}</p>{{ end }}
+          </a></article>
+          {{ else }}
+          <div class="lx-terminal-empty"><span>No files yet.</span><p>暂无文章，等待下一次记录。</p></div>
+          {{ end }}
+          {{ with $group.url }}<a class="lx-category-more" href="{{ . }}">浏览分类全部文章 <span aria-hidden="true">→</span></a>{{ else }}{{ if gt (len $group.pages) 4 }}<a class="lx-category-more" href="{{ "posts/" | relURL }}">浏览全部文章 →</a>{{ end }}{{ end }}
+        </section>
+        {{ end }}
+      </div>
+
   </section>
 </div>
 {{ end }}
