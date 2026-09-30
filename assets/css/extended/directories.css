@@ -1,0 +1,32 @@
+/* Tag index and chronological archive share the homepage's terminal palette. */
+.lx-directory { margin-bottom: 64px; }
+.lx-directory-heading { margin-bottom: 28px; }
+.lx-directory-heading > a { color: var(--secondary); font: 11px var(--lx-mono); }
+.lx-directory-heading h1 { margin: 14px 0 10px; font-size: clamp(30px, 5vw, 42px); letter-spacing: -.04em; }
+.lx-directory-heading p { color: var(--secondary); font-size: 12px; }
+.lx-directory-window { border: 1px solid var(--border); background: var(--entry); border-radius: 6px; overflow: hidden; }
+.lx-directory-bar { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); background: var(--theme); padding: 13px 18px; color: var(--secondary); font: 11px var(--lx-mono); }
+.lx-directory-bar h2 { font: inherit; }
+.lx-directory-bar > span:last-child { margin-left: auto; font-size: 10px; }
+.lx-directory-command { padding: 21px 20px 12px; color: var(--secondary); font: 12px var(--lx-mono); }
+.lx-directory-command > span { color: var(--lx-accent); margin-right: 7px; }
+.lx-tag-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 26px; padding: 0 20px 20px; }
+.lx-tag-row { display: flex; justify-content: space-between; gap: 14px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.lx-tag-name { overflow-wrap: anywhere; }
+.lx-tag-name > span { color: var(--lx-accent); font-family: var(--lx-mono); }
+.lx-tag-count { white-space: nowrap; color: var(--secondary); font-size: 10px; }
+.lx-tag-count > span { color: var(--lx-accent); margin-left: 8px; }
+.lx-directory-empty { grid-column: 1/-1; padding: 28px 20px; color: var(--secondary); font-size: 12px; line-height: 1.8; }
+.lx-year-window { margin-bottom: 24px; }
+.lx-archive-month { padding: 20px; }
+.lx-archive-month + .lx-archive-month { border-top: 1px solid var(--border); }
+.lx-archive-month h3 { font: 12px var(--lx-mono); margin-bottom: 12px; color: var(--content); }
+.lx-archive-month h3 > span:first-child { color: var(--lx-accent); margin-right: 8px; }
+.lx-archive-month h3 > span:last-child { color: var(--secondary); margin-left: 12px; font-size: 10px; }
+.lx-archive-row { display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.lx-archive-row:last-child { border-bottom: none; }
+.lx-archive-row time { flex-shrink: 0; color: var(--secondary); font: 11px var(--lx-mono); }
+.lx-archive-row > span:nth-child(2) { overflow-wrap: anywhere; }
+.lx-archive-row small { font-size: 10px; color: var(--secondary); white-space: nowrap; }
+.lx-archive-arrow { margin-left: auto; color: var(--lx-accent); }
+@media (max-width:600px) { .lx-tag-grid { grid-template-columns: 1fr; } .lx-archive-row { gap: 10px; } }

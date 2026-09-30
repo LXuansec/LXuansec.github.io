@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>LXuan</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on LXuan</description>
+    <title>杂谈 on LXuan</title>
+    <link>http://localhost:1313/categories/%E6%9D%82%E8%B0%88/</link>
+    <description>Recent content in 杂谈 on LXuan</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 30 Sep 2026 17:00:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CMake个人使用指南</title>
       <link>http://localhost:1313/posts/cmake-guide/</link>

@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ $pages := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+<div class="lx-home lx-directory">
+  <header class="lx-directory-heading"><a href="{{ "" | relURL }}">~/LXuan</a><h1>{{ .Title }}</h1><p>按时间整理的文章记录 · {{ len $pages }} 篇</p></header>
+  {{ range $pages.GroupByDate "2006" }}
+  <section class="lx-directory-window lx-year-window" aria-labelledby="archive-{{ .Key }}">
+    <div class="lx-directory-bar"><span class="lx-terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 id="archive-{{ .Key }}">~/blog/{{ .Key }}</h2><span>{{ len .Pages }} posts</span></div>
+    {{ range .Pages.GroupByDate "01" }}
+    <div class="lx-archive-month"><h3><span aria-hidden="true">❯</span> {{ .Key }} 月 <span>{{ len .Pages }} 篇</span></h3>
+      {{ range .Pages }}<a class="lx-archive-row" href="{{ .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><span>{{ .Title }}</span>{{ if .Draft }}<small>草稿</small>{{ end }}<span class="lx-archive-arrow" aria-hidden="true">↗</span></a>{{ end }}
+    </div>
+    {{ end }}
+  </section>
+  {{ else }}
+  <section class="lx-directory-window"><div class="lx-directory-bar"><span class="lx-terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>~/blog/archives</span><span>0 posts</span></div><p class="lx-directory-empty">暂无已发布文章，新的记录会按时间出现在这里。</p></section>
+  {{ end }}
+</div>
+{{ end }}

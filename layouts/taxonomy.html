@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="lx-home lx-directory">
+  <header class="lx-directory-heading"><a href="{{ "" | relURL }}">~/LXuan</a><h1>{{ .Title }}</h1><p>{{ if eq .Type "tags" }}按知识点浏览文章{{ else }}按分类浏览文章{{ end }}</p></header>
+  <section class="lx-directory-window" aria-label="{{ .Title }}索引">
+    <div class="lx-directory-bar"><span class="lx-terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>~/blog/{{ .Type }}</span><span>{{ len .Data.Terms }} entries</span></div>
+    <div class="lx-directory-command"><span aria-hidden="true">❯</span> ls --topics</div>
+    <div class="lx-tag-grid">
+      {{ range .Data.Terms.Alphabetical }}
+      <a class="lx-tag-row" href="{{ .Page.RelPermalink }}"><span class="lx-tag-name"><span aria-hidden="true">#</span> {{ .Page.LinkTitle }}</span><span class="lx-tag-count">{{ .Count }} 篇 <span aria-hidden="true">↗</span></span></a>
+      {{ else }}<p class="lx-directory-empty">暂无{{ if eq $.Type "tags" }}标签{{ else }}分类{{ end }}，发布文章后会自动显示。</p>{{ end }}
+    </div>
+  </section>
+</div>
+{{ end }}
