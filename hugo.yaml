@@ -1,0 +1,4 @@
+baseURL: "http://localhost/"
+languageCode: "zh-cn"
+title: "LXuan"
+theme: "PaperMod"
